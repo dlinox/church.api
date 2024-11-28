@@ -58,9 +58,9 @@ class Worker extends Model
         return $value == 'M' ? 'Masculino' : 'Femenino';
     }
 
-    // public function setGenderAttribute($value)
-    // {
-    //     $this->attributes['gender'] = $value == 'Masculino' ? 'M' : 'F';
-    // }
+    public function setGenderAttribute($value)
+    {
+        $this->attributes['gender'] = $value == 'Masculino' ? 'M' : 'F';
+    }
 
 }

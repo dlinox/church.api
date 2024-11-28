@@ -29,7 +29,9 @@ class WorkerController extends Controller
                     'maternal_last_name as maternalLastName',
                     'birth_date as birthDate',
                     'gender',
+                    'email',
                     'phone_number as phoneNumber',
+                    'position_id as positionId',
                     'status',
                 )
                 ->dataTable($request);
@@ -44,8 +46,22 @@ class WorkerController extends Controller
         try {
             if ($request->id != null) {
                 $item = $this->worker->find($request->id);
-                $item->update($request->all());
-                return ApiResponse::success(null, 'Oficina actualizada con éxito');
+                $item->update(
+                    [
+                        'document_number' => $request->documentNumber,
+                        'name' => $request->name,
+                        'paternal_last_name' => $request->paternalLastName,
+                        'maternal_last_name' => $request->maternalLastName,
+                        'birth_date' => $request->birthDate,
+                        'gender' => $request->gender,
+                        'phone_number' => $request->phoneNumber,
+                        'email' => $request->email,
+                        'position_id' => $request->positionId,
+                        'status' => $request->status,
+
+                    ]
+                );
+                return ApiResponse::success(null, 'Trabajador actualizado con éxito');
             }
             $this->worker->create(
                 [
@@ -58,15 +74,12 @@ class WorkerController extends Controller
                     'gender' => $request->gender,
                     'phone_number' => $request->phoneNumber,
                     'email' => $request->email,
-                    'status' => 1,
                     'position_id' => $request->positionId,
-                    'office_id' => $request->officeId,
-
                 ]
             );
-            return ApiResponse::success(null, 'Oficina creada con éxito', 201);
+            return ApiResponse::success(null, 'Trabajador creado con éxito', 201);
         } catch (\Exception $e) {
-            return ApiResponse::error($e->getMessage(), 'Error al crear la oficina');
+            return ApiResponse::error($e->getMessage(), 'Error al registrar al trabajador');
         }
     }
 
