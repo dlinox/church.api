@@ -11,17 +11,14 @@ class InitSeeder extends Seeder
         'dashboard.Dashboard' => [
             'dashboard.report1' => 'Reporte1',
         ],
+        'branches.sedes' => [
+            'branches.my-branch' => 'Mi sucursal',
+        ],
         'positions.cargos' => [
             'positions.index' => 'Ver cargos',
             'positions.create' => 'Crear cargos',
             'positions.edit' => 'Editar cargos',
             'positions.delete' => 'Eliminar cargos',
-        ],
-        'offices.oficinas' => [
-            'offices.index' => 'Ver oficinas',
-            'offices.create' => 'Crear oficinas',
-            'offices.edit' => 'Editar oficinas',
-            'offices.delete' => 'Eliminar oficinas',
         ],
         'workers.trabajadores' => [
             'workers.index' => 'Ver trabajadores',
@@ -45,8 +42,8 @@ class InitSeeder extends Seeder
         ['name' => 'Parroco', 'description' => 'Parroco de la iglesia', 'status' => 1],
     ];
 
-    protected $offices = [
-        ['name' => 'Sede Arequipa', 'description' => 'Sede Arequipa', 'status' => 1],
+    protected $branches = [
+        ['name' => 'Parroquia San Miguel', 'address' => 'Ilave', 'phone_number' => '951208106', 'status' => 1],
     ];
 
     protected $workers = [
@@ -61,9 +58,9 @@ class InitSeeder extends Seeder
             'phone_number' => '951208106',
             'email' => 'dpumaticona@gmail.com',
             'position_id' => 1,
-            'office_id' => 1,
-            'status' => 1,
-        ],
+            'branch_id' => 1,
+            'status' => 1
+        ]
     ];
 
     protected $user = [
@@ -84,7 +81,6 @@ class InitSeeder extends Seeder
                 'is_super' => true,
                 'redirect_route' => '/a'
             ],
-
         );
 
         $roleUser = \Spatie\Permission\Models\Role::create(
@@ -100,8 +96,8 @@ class InitSeeder extends Seeder
             \App\Models\Position::create($position);
         }
 
-        foreach ($this->offices as $office) {
-            \App\Models\Office::create($office);
+        foreach ($this->branches as $branch) {
+            \App\Models\Branch::create($branch);
         }
 
         foreach ($this->workers as $worker) {

@@ -1,17 +1,11 @@
 <?php
 
-use App\Http\Controllers\AttentionController;
 use App\Http\Controllers\Auth\AuthController;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\CookieSessionsController;
-use App\Http\Controllers\OfficeController;
+use App\Http\Controllers\BranchController;
 use App\Http\Controllers\PositionController;
-use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WorkerController;
-use App\Models\CookieSessions;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cookie;
+
 use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'auth'], function () {
@@ -28,12 +22,10 @@ Route::group(['prefix' => 'positions'], function () {
     Route::get('/load-select', [PositionController::class, 'loadSelect'])->middleware('auth:sanctum');
 });
 
-//offices
-Route::group(['prefix' => 'offices'], function () {
-    Route::post('/load-data-table', [OfficeController::class, 'loadDataTable'])->middleware('auth:sanctum');
-    Route::post('/save', [OfficeController::class, 'save'])->middleware('auth:sanctum');
-    Route::delete('/delete/{id}', [OfficeController::class, 'delete'])->middleware('auth:sanctum');
-    Route::get('/load-select', [OfficeController::class, 'loadSelect'])->middleware('auth:sanctum');
+//branches
+Route::group(['prefix' => 'branches'], function () {
+    Route::post('/save', [BranchController::class, 'save'])->middleware('auth:sanctum');
+    Route::get('/general-information/{id}', [BranchController::class, 'getGeneralInformation'])->middleware('auth:sanctum');
 });
 
 //workers
@@ -55,18 +47,3 @@ Route::group(['prefix' => 'users'], function () {
     //assignPermissions
     Route::post('/assign-permissions', [UserController::class, 'assignPermissions'])->middleware('auth:sanctum');
 });
-
-//categories
-Route::group(['prefix' => 'categories'], function () {
-    Route::post('/load-data-table', [CategoryController::class, 'loadDataTable'])->middleware('auth:sanctum');
-    Route::post('/save', [CategoryController::class, 'save'])->middleware('auth:sanctum');
-});
-
-//services
-Route::group(['prefix' => 'services'], function () {
-    Route::post('/load-data-table', [ServiceController::class, 'loadDataTable'])->middleware('auth:sanctum');
-    Route::post('/save', [ServiceController::class, 'save'])->middleware('auth:sanctum');
-});
-
-
-Route::get('/sis/get-data/{sessionId}', [ AttentionController::class, 'getDataSIS' ])->middleware('auth:sanctum');

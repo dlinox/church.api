@@ -9,13 +9,6 @@ return new class extends Migration
 {
     public function up(): void
     {
-        
-        //init 
-        $DB_NAME = env('DB_DATABASE');
-        
-
-        DB::statement('CREATE DATABASE IF NOT EXISTS ' . $DB_NAME);
-        DB::statement('USE ' . $DB_NAME);
 
         Schema::create('positions', function (Blueprint $table) {
             $table->id();

@@ -23,7 +23,7 @@ class Worker extends Model
         'email',
         'status',
         'position_id',
-        'office_id',
+        'branch_id',
     ];
 
     protected $casts = [
